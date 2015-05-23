@@ -48,14 +48,14 @@ namespace Fotogram.Services
             {
                 var byteArray = Convert.FromBase64String(avatar);
 
-                var path = $"{serverPath}{nomeUsuario}";
+                var path = string.Format("{0}{1}", serverPath, nomeUsuario);
 
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
 
-                var imgName = $"{Guid.NewGuid()}.jpg";
+                var imgName = string.Format("{0}.jpg", Guid.NewGuid());
 
                 var newFileNameOnServer = Path.Combine(path, imgName);
 
@@ -65,7 +65,7 @@ namespace Fotogram.Services
                     imageToSave.Save(newFileNameOnServer, ImageFormat.Jpeg);
                 }
 
-                var newFileNameOnDb = $"/Images/Uploads/{nomeUsuario}/{imgName}";
+                var newFileNameOnDb = string.Format("/Images/Uploads/{0}/{1}", nomeUsuario, imgName);
 
                 return newFileNameOnDb;
             }
