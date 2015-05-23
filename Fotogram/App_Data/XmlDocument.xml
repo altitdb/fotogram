@@ -481,6 +481,17 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:Fotogram.Controllers.Api.PostagemController">
+            <summary>
+            Classe responsável pelas postagens
+            </summary>
+        </member>
+        <member name="M:Fotogram.Controllers.Api.PostagemController.GetPostagens">
+            <summary>
+            Carrega as postagens do usuário (necessário autenticação)
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Fotogram.Controllers.Api.UsuarioController">
             <summary>
             Acesso do Usuário

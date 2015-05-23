@@ -49,12 +49,12 @@ namespace Fotogram.Models
         /// <summary>
         /// Latitude, de acordo com o mapa (bing, nokia, google)
         /// </summary>
-        public Int64 Latitude { get; set; }
+        public string Latitude { get; set; }
 
         /// <summary>
         /// Longitude, de acordo com o mapa (bing, nokia, google)
         /// </summary>
-        public Int64 Longitude { get; set; }
+        public string Longitude { get; set; }
 
         /// <summary>
         /// Data da atualização do registro
@@ -84,7 +84,7 @@ namespace Fotogram.Models
         /// Imagem da postagem
         /// </summary>
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
-        public byte[] Imagem { get; set; }
+        public string Imagem { get; set; }
 
         /// <summary>
         /// Texto da postagem
