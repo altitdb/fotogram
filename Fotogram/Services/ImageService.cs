@@ -2,6 +2,10 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Security.Policy;
+using System.Web.Http.Routing;
+using System.Web.UI.WebControls;
+using Image = System.Drawing.Image;
 
 namespace Fotogram.Services
 {
@@ -51,15 +55,19 @@ namespace Fotogram.Services
                     Directory.CreateDirectory(path);
                 }
 
-                var newFileName = Path.Combine(path, $"{Guid.NewGuid()}.jpg");
+                var imgName = $"{Guid.NewGuid()}.jpg";
+
+                var newFileNameOnServer = Path.Combine(path, imgName);
 
                 using (Image image = Image.FromStream(new MemoryStream(byteArray)))
                 {
                     var imageToSave = ScaleImage(image, 300, 300);
-                    imageToSave.Save(newFileName, ImageFormat.Jpeg);
+                    imageToSave.Save(newFileNameOnServer, ImageFormat.Jpeg);
                 }
 
-                return newFileName;
+                var newFileNameOnDb = $"/Images/Uploads/{nomeUsuario}/{imgName}";
+
+                return newFileNameOnDb;
             }
             catch (Exception)
             {

@@ -123,6 +123,9 @@ DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
 
+# Users Images
+Images/Uploads
+
 # Click-Once directory
 publish/
 
