@@ -785,6 +785,46 @@
             Longitude, de acordo com o mapa (bing, nokia, google)
             </summary>
         </member>
+        <member name="T:Fotogram.Models.VisualizacaoPostagemViewModel">
+            <summary>
+            Classe simplificada para o método GET
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.PostagemId">
+            <summary>
+            Identificador da Postagem
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.NomeUsuario">
+            <summary>
+            Identificador do usuário
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.Imagem">
+            <summary>
+            Imagem da postagem
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.Texto">
+            <summary>
+            Texto da postagem
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.Local">
+            <summary>
+            Descrição do local, de acordo com o mapa (bing, nokia, google)
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.Latitude">
+            <summary>
+            Latitude, de acordo com o mapa (bing, nokia, google)
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.Longitude">
+            <summary>
+            Longitude, de acordo com o mapa (bing, nokia, google)
+            </summary>
+        </member>
         <member name="T:Fotogram.Models.SeguindoModel">
             <summary>
             Classe que representa a tabela no banco de dados

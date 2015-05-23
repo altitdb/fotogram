@@ -26,6 +26,16 @@ namespace Fotogram.Controllers.Api
             var model = await _db.PostagemModel
                 .Where(w =>
                     w.Usuario.NomeUsuario == User.Identity.Name)
+                .Select(s => new VisualizacaoPostagemViewModel
+                {
+                    PostagemId = s.Id,
+                    NomeUsuario = s.Usuario.NomeUsuario,
+                    Imagem = s.ImagemUrl,
+                    Local = s.Local,
+                    Latitude = s.Latitude,
+                    Longitude = s.Longitude,
+                    Texto = s.Texto
+                })
                 .ToListAsync();
 
             return Ok(model);
@@ -61,7 +71,9 @@ namespace Fotogram.Controllers.Api
 
             await _db.SaveChangesAsync();
 
-            return Ok(postagem);
+            model.Imagem = postagem.ImagemUrl;
+
+            return Ok(model);
         }
     }
 }

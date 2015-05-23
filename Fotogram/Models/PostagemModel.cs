@@ -111,4 +111,45 @@ namespace Fotogram.Models
         [StringLength(16, ErrorMessage = "O campo {0} aceita no máximo {1} caracteres!")]
         public string Longitude { get; set; }
     }
+
+    /// <summary>
+    /// Classe simplificada para o método GET
+    /// </summary>
+    public class VisualizacaoPostagemViewModel
+    {
+        /// <summary>
+        /// Identificador da Postagem
+        /// </summary>
+        public int PostagemId { get; set; }
+
+        /// <summary>
+        /// Identificador do usuário
+        /// </summary>
+        public string NomeUsuario { get; set; }
+
+        /// <summary>
+        /// Imagem da postagem
+        /// </summary>
+        public string Imagem { get; set; }
+
+        /// <summary>
+        /// Texto da postagem
+        /// </summary>
+        public string Texto { get; set; }
+
+        /// <summary>
+        /// Descrição do local, de acordo com o mapa (bing, nokia, google)
+        /// </summary>
+        public string Local { get; set; }
+
+        /// <summary>
+        /// Latitude, de acordo com o mapa (bing, nokia, google)
+        /// </summary>
+        public string Latitude { get; set; }
+
+        /// <summary>
+        /// Longitude, de acordo com o mapa (bing, nokia, google)
+        /// </summary>
+        public string Longitude { get; set; }
+    }
 }
