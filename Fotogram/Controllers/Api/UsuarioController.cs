@@ -33,7 +33,10 @@ namespace Fotogram.Controllers.Api
     {
         private readonly FotogramContextDb _db = new FotogramContextDb();
 
-        private IAuthenticationManager Authentication => Request.GetOwinContext().Authentication;
+        private IAuthenticationManager Authentication
+        {
+            get { return Request.GetOwinContext().Authentication; }
+        }
 
         /// <summary>
         /// Carrega os dados do usuário de acordo com o nome de usuário
@@ -217,12 +220,12 @@ namespace Fotogram.Controllers.Api
             {
                 return NotFound();
             }
-
-            var excluirSeguidosQuery = $@"DELETE FROM SeguindoModel WHERE UsuarioSeguidorId = {usuarioModel.Id}";
-            var excluirSeguidoresQuery = $@"DELETE FROM SeguindoModel WHERE UsuarioSeguidoId = {usuarioModel.Id}";
-            var excluirCurtidasQuery = $@"DELETE FROM CurtidaModel WHERE UsuarioModelId = {usuarioModel.Id}";
-            var excluirComentariosQuery = $@"DELETE FROM ComentarioModel WHERE UsuarioModelId = {usuarioModel.Id}";
-            var excluirPostagensQuery = $@"DELETE FROM PostagemModel WHERE UsuarioModelId = {usuarioModel.Id}";
+            
+            var excluirSeguidosQuery = string.Format(@"DELETE FROM SeguindoModel WHERE UsuarioSeguidorId = {0}", usuarioModel.Id);
+            var excluirSeguidoresQuery = string.Format(@"DELETE FROM SeguindoModel WHERE UsuarioSeguidoId = {0}", usuarioModel.Id);
+            var excluirCurtidasQuery = string.Format(@"DELETE FROM CurtidaModel WHERE UsuarioModelId = {0}", usuarioModel.Id);
+            var excluirComentariosQuery = string.Format(@"DELETE FROM ComentarioModel WHERE UsuarioModelId = {0}", usuarioModel.Id);
+            var excluirPostagensQuery = string.Format(@"DELETE FROM PostagemModel WHERE UsuarioModelId = {0}", usuarioModel.Id);
 
             // EXCLUI TODOS OS REGISTROS RELACIONADOS À ESTE USUÁRIO
             await _db.Database.ExecuteSqlCommandAsync(excluirSeguidosQuery);
