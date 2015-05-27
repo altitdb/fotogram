@@ -19,7 +19,7 @@ namespace Fotogram.Models
         public FotogramContextDb()
             : base("name=FotogramContextDb")
         {
-
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
 
         /// <summary>

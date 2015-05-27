@@ -66,16 +66,36 @@ namespace Fotogram.Models
         public int PostagemModelId { get; set; }
         
         /// <summary>
-        /// Identificador do usuário
-        /// </summary>
-        [Required(ErrorMessage = "O campo {0} é obrigatório!")]
-        public int UsuarioModelId { get; set; }
-        
-        /// <summary>
         /// Texto do comentário
         /// </summary>
         [Required(ErrorMessage = "O campo {0} é obrigatório!")]
         [StringLength(50, ErrorMessage = "O campo {0} aceita no máximo {1} caracteres!")]
         public string Texto { get; set; }
+    }
+
+    /// <summary>
+    /// Classe simplificada para o método GET
+    /// </summary>
+    public class ComentarioVisualizacaoViewModel
+    {
+        /// <summary>
+        /// Identificador da postagem
+        /// </summary>
+        public int PostagemModelId { get; set; }
+
+        /// <summary>
+        /// Texto do comentário
+        /// </summary>
+        public string Texto { get; set; }
+
+        /// <summary>
+        /// Data e hora do comentário
+        /// </summary>
+        public DateTime Data { get; set; }
+
+        /// <summary>
+        /// Nome do usuário que postou o comentário
+        /// </summary>
+        public string NomeUsuario { get; set; }
     }
 }

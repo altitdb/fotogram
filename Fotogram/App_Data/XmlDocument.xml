@@ -490,6 +490,48 @@
             <summary>
             Carrega as postagens do usuário (necessário autenticação)
             </summary>
+            <returns>Lista de VisualizacaoPostagemViewModel</returns>
+        </member>
+        <member name="M:Fotogram.Controllers.Api.PostagemController.GetPostagens(System.String)">
+            <summary>
+            Carrega as postagens de um determinado usuário (necessário autenticação)
+            </summary>
+            <param name="nomeusuario">string</param>
+            <returns>Lista de VisualizacaoPostagemViewModel</returns>
+        </member>
+        <member name="M:Fotogram.Controllers.Api.PostagemController.GetPostagem(System.Int32)">
+            <summary>
+            Carrega apenas uma postagem para visualização (necessário autenticação)
+            </summary>
+            <param name="id">Identificação da postagem</param>
+            <returns>VisualizacaoPostagemViewModel</returns>
+        </member>
+        <member name="M:Fotogram.Controllers.Api.PostagemController.PostPostagem(Fotogram.Models.NovaPostagemViewModel)">
+            <summary>
+            Faz o upload de uma imagem (necessário autenticação)
+            </summary>
+            <param name="model">NovaPostagemViewModel</param>
+            <returns>NovaPostagemViewModel</returns>
+        </member>
+        <member name="M:Fotogram.Controllers.Api.PostagemController.PostCurtir(System.Int32)">
+            <summary>
+            Curte uma postagem. Se a postagem já foi curtida, desfaz o curtir (necessário autenticação)
+            </summary>
+            <param name="id">int</param>
+            <returns>Ok</returns>
+        </member>
+        <member name="M:Fotogram.Controllers.Api.PostagemController.PostComentario(Fotogram.Models.ComentarioViewModel)">
+            <summary>
+            Grava um comentário do usuário (necessário autenticação)
+            </summary>
+            <param name="model">ComentarioViewModel</param>
+            <returns>ComentarioViewModel</returns>
+        </member>
+        <member name="M:Fotogram.Controllers.Api.PostagemController.GetComentarios(System.Int32)">
+            <summary>
+            Carrega todos os comentários de acordo com a postagem (necessário autenticação)
+            </summary>
+            <param name="postagemId"></param>
             <returns></returns>
         </member>
         <member name="T:Fotogram.Controllers.Api.UsuarioController">
@@ -499,41 +541,41 @@
         </member>
         <member name="M:Fotogram.Controllers.Api.UsuarioController.GetUsuarioModel(System.String)">
             <summary>
-            Carrega os dados do usuário de acordo com o nome de usuário
+            Carrega os dados do usuário de acordo com o nome de usuário (não necessita autenticação)
             </summary>
             <param name="nomeUsuario"></param>
             <returns>Ok (200)</returns>
         </member>
         <member name="M:Fotogram.Controllers.Api.UsuarioController.GetMeuUsuarioModel">
             <summary>
-            Carrega os dados do usuário logado
+            Carrega os dados do usuário logado (necessário autenticação)
             </summary>
             <returns>VisualizacaoUsuarioViewModel</returns>
         </member>
         <member name="M:Fotogram.Controllers.Api.UsuarioController.PostAlteracaoUsuarioModel(Fotogram.Models.AlteracaoUsuarioViewModel)">
             <summary>
-            Alterar os dados do usuário
+            Alterar os dados do usuário logado (necessário autenticação)
             </summary>
             <param name="usuarioModel"></param>
             <returns></returns>
         </member>
         <member name="M:Fotogram.Controllers.Api.UsuarioController.PostInclusaoUsuarioModel(Fotogram.Models.RegistroUsuarioViewModel)">
             <summary>
-            Cria um novo registro de usuário
+            Cria um novo registro de usuário (não necessita autenticação)
             </summary>
             <param name="usuarioModel">RegistroUsuarioViewModel</param>
             <returns>Ok (201, VisualizacaoUsuarioViewModel)</returns>
         </member>
         <member name="M:Fotogram.Controllers.Api.UsuarioController.DeleteUsuarioModel(System.String)">
             <summary>
-            Exclui a conta de usuário
+            Exclui a conta do usuário logado (necessário autenticação)
             </summary>
             <param name="nomeUsuario">string</param>
             <returns>VisualizacaoUsuarioViewModel</returns>
         </member>
         <member name="M:Fotogram.Controllers.Api.UsuarioController.PostSeguirUsuario(System.String)">
             <summary>
-            Segue ou deixa de seguir determinado usuário
+            Segue ou deixa de seguir determinado usuário (necessário autenticação)
             </summary>
             <param name="nomeUsuario">string</param>
             <returns>Ok</returns>
@@ -594,14 +636,34 @@
             Identificador da postagem
             </summary>
         </member>
-        <member name="P:Fotogram.Models.ComentarioViewModel.UsuarioModelId">
-            <summary>
-            Identificador do usuário
-            </summary>
-        </member>
         <member name="P:Fotogram.Models.ComentarioViewModel.Texto">
             <summary>
             Texto do comentário
+            </summary>
+        </member>
+        <member name="T:Fotogram.Models.ComentarioVisualizacaoViewModel">
+            <summary>
+            Classe simplificada para o método GET
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.ComentarioVisualizacaoViewModel.PostagemModelId">
+            <summary>
+            Identificador da postagem
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.ComentarioVisualizacaoViewModel.Texto">
+            <summary>
+            Texto do comentário
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.ComentarioVisualizacaoViewModel.Data">
+            <summary>
+            Data e hora do comentário
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.ComentarioVisualizacaoViewModel.NomeUsuario">
+            <summary>
+            Nome do usuário que postou o comentário
             </summary>
         </member>
         <member name="T:Fotogram.Models.CurtidaModel">
@@ -750,6 +812,16 @@
             Classe Usuario (usuário seguidor)
             </summary>
         </member>
+        <member name="P:Fotogram.Models.PostagemModel.Curtidas">
+            <summary>
+            Lista das curtidas da postagem
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.PostagemModel.Comentarios">
+            <summary>
+            Lista de comentários da postagem
+            </summary>
+        </member>
         <member name="T:Fotogram.Models.NovaPostagemViewModel">
             <summary>
             Classe simplificada para o método POST
@@ -823,6 +895,16 @@
         <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.Longitude">
             <summary>
             Longitude, de acordo com o mapa (bing, nokia, google)
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.Curtidas">
+            <summary>
+            Quantidade de curtidas da postagem
+            </summary>
+        </member>
+        <member name="P:Fotogram.Models.VisualizacaoPostagemViewModel.QuantidadeComentarios">
+            <summary>
+            QuantidadeComentarios
             </summary>
         </member>
         <member name="T:Fotogram.Models.SeguindoModel">

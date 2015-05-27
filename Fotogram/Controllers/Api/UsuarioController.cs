@@ -35,7 +35,7 @@ namespace Fotogram.Controllers.Api
         }
 
         /// <summary>
-        /// Carrega os dados do usuário de acordo com o nome de usuário
+        /// Carrega os dados do usuário de acordo com o nome de usuário (não necessita autenticação)
         /// </summary>
         /// <param name="nomeUsuario"></param>
         /// <returns>Ok (200)</returns>
@@ -63,7 +63,7 @@ namespace Fotogram.Controllers.Api
         }
 
         /// <summary>
-        /// Carrega os dados do usuário logado
+        /// Carrega os dados do usuário logado (necessário autenticação)
         /// </summary>
         /// <returns>VisualizacaoUsuarioViewModel</returns>
         [ResponseType(typeof(VisualizacaoUsuarioViewModel))]
@@ -84,7 +84,7 @@ namespace Fotogram.Controllers.Api
         }
 
         /// <summary>
-        /// Alterar os dados do usuário
+        /// Alterar os dados do usuário logado (necessário autenticação)
         /// </summary>
         /// <param name="usuarioModel"></param>
         /// <returns></returns>
@@ -128,7 +128,7 @@ namespace Fotogram.Controllers.Api
         }
 
         /// <summary>
-        /// Cria um novo registro de usuário
+        /// Cria um novo registro de usuário (não necessita autenticação)
         /// </summary>
         /// <param name="usuarioModel">RegistroUsuarioViewModel</param>
         /// <returns>Ok (201, VisualizacaoUsuarioViewModel)</returns>
@@ -192,7 +192,7 @@ namespace Fotogram.Controllers.Api
         }
 
         /// <summary>
-        /// Exclui a conta de usuário
+        /// Exclui a conta do usuário logado (necessário autenticação)
         /// </summary>
         /// <param name="nomeUsuario">string</param>
         /// <returns>VisualizacaoUsuarioViewModel</returns>
@@ -239,7 +239,7 @@ namespace Fotogram.Controllers.Api
         }
 
         /// <summary>
-        /// Segue ou deixa de seguir determinado usuário
+        /// Segue ou deixa de seguir determinado usuário (necessário autenticação)
         /// </summary>
         /// <param name="nomeUsuario">string</param>
         /// <returns>Ok</returns>
@@ -320,7 +320,10 @@ namespace Fotogram.Controllers.Api
                 if (string.IsNullOrWhiteSpace(usuarioAlteracao.Avatar)) return;
 
                 var path = HttpContext.Current.Server.MapPath("~/Images/Uploads/");
-                usuario.Avatar = ImageService.SalvarImagemNoServidor(usuarioAlteracao.NomeUsuario, path, usuarioAlteracao.Avatar);
+                var urlBase = string.Format("{0}://{1}", HttpContext.Current.Request.Url.Scheme,
+                    HttpContext.Current.Request.Url.Authority);
+
+                usuario.Avatar = String.Format("{0}{1}", urlBase, ImageService.SalvarImagemNoServidor(usuarioAlteracao.NomeUsuario, path, usuarioAlteracao.Avatar));
             }
             else if (usuarioRegistro != null)
             {

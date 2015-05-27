@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Fotogram.Models
@@ -66,6 +68,16 @@ namespace Fotogram.Models
         /// Classe Usuario (usuário seguidor)
         /// </summary>
         public virtual UsuarioModel Usuario { get; set; }
+
+        /// <summary>
+        /// Lista das curtidas da postagem
+        /// </summary>
+        public virtual ICollection<CurtidaModel> Curtidas { get; set; }
+
+        /// <summary>
+        /// Lista de comentários da postagem
+        /// </summary>
+        public virtual ICollection<ComentarioModel> Comentarios { get; set; }
     }
 
     /// <summary>
@@ -151,5 +163,15 @@ namespace Fotogram.Models
         /// Longitude, de acordo com o mapa (bing, nokia, google)
         /// </summary>
         public string Longitude { get; set; }
+
+        /// <summary>
+        /// Quantidade de curtidas da postagem
+        /// </summary>
+        public int Curtidas { get; set; }
+
+        /// <summary>
+        /// QuantidadeComentarios
+        /// </summary>
+        public int QuantidadeComentarios { get; set; }
     }
 }
