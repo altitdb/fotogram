@@ -8,7 +8,37 @@
     mc:Ignorable="d" Loaded="Page_Loaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ScrollViewer>
+            <ListBox 
+                x:Name="Lista"
+                Background="Black"
+                Foreground="White">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <Image Source="{Binding Imagem}"></Image>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding NomeUsuario}" Margin="0, 0, 10, 0"/>
+                                <TextBlock Text="{Binding Local}"/>
+                            </StackPanel>
 
+                            <TextBlock Text="{Binding Texto}"/>
+
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Curtidas: "/>
+                                    <TextBlock Text="{Binding Curtidas}" Margin="0, 0, 10, 0"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Quantidade de comentários: "/>
+                                    <TextBlock Text="{Binding QuantidadeComentarios}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </ScrollViewer>
     </Grid>
 
     <Page.BottomAppBar>

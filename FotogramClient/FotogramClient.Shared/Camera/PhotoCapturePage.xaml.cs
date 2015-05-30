@@ -58,18 +58,27 @@ namespace FotogramClient.Camera
             // Take snapshot and add to ListView
             // Disable button to prevent exception due to parallel capture usage
             BtnCapturePhoto.IsEnabled = false;
-            var photoStorageFile = await cameraCapture.CapturePhoto();
+            var photoName = string.Format(@"fotogram_{0}_{1}.jpg", 
+                DateTime.UtcNow.AddHours(-3).ToString("yyyy-MM-dd"), 
+                DateTime.UtcNow.AddHours(-3).ToString("HH_mm_ss"));
+            var photoStorageFile = await cameraCapture.CapturePhoto(photoName);
 
             var bitmap = new BitmapImage();
             await bitmap.SetSourceAsync(await photoStorageFile.OpenReadAsync());
-            //PhotoListView.Items.Add(bitmap);
+            PhotoListView.Items.Add(bitmap);
+
+            var dic = new Dictionary<string, object>();
+            dic.Add("uri", photoStorageFile.Path);
+            dic.Add("bmp", bitmap);
+
+            Frame.Navigate(typeof(NovaPostagem), dic);
             //BtnCapturePhoto.IsEnabled = true;
 
-            var wb = new WriteableBitmap(bitmap.PixelWidth, bitmap.PixelHeight);
-            await wb.SetSourceAsync(await photoStorageFile.OpenReadAsync());
+            //var wb = new WriteableBitmap(bitmap.PixelWidth, bitmap.PixelHeight);
+            //await wb.SetSourceAsync(await photoStorageFile.OpenReadAsync());
 
-            PhotoListView.Items.Add(wb);
-            BtnCapturePhoto.IsEnabled = true;
+            //PhotoListView.Items.Add(wb);
+            //BtnCapturePhoto.IsEnabled = true;
         }
 
         private void PhotoListView_Tapped(object sender, TappedRoutedEventArgs e)
@@ -78,7 +87,7 @@ namespace FotogramClient.Camera
 
             if (lst != null)
             {
-                var img = lst.SelectedItem as WriteableBitmap;
+                var img = lst.SelectedItem as BitmapImage;
 
                 Frame.Navigate(typeof (NovaPostagem), img);
             }

@@ -19,15 +19,15 @@ namespace FotogramClient
 
         private async void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            var username = TxtUsuario.Text;
-            var password = TxtPassword.Password;
+            //var username = TxtUsuario.Text;
+            //var password = TxtPassword.Password;
 
             await Login(false);
         }
 
         private void BtnCadastro_Click(object sender, RoutedEventArgs e)
         {
-
+            Frame.Navigate(typeof (CadastroUsuario));
         }
 
         internal async Task Login(bool autoLogin)

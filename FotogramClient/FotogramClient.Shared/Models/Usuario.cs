@@ -44,6 +44,9 @@ namespace FotogramClient.Models
 
             var token = JsonConvert.DeserializeObject<Token>(tokenObject);
 
+            // guarda o token na memória (localstorage) do aparelho
+            _func.SaveOrUpdateOnLocalStorage("token", token.access_token);
+
             return token.access_token;
         }
 
@@ -71,6 +74,33 @@ namespace FotogramClient.Models
             var usuario = JsonConvert.DeserializeObject<Usuario>(usuarioLocalJson);
             return usuario;
         }
+
+        public async Task<Usuario> CadastroUsuario(NovoUsuario model)
+        {
+            var client = new HttpClient { BaseAddress = new Uri(App.UrlBase) };
+
+            client
+                .DefaultRequestHeaders
+                .Add("Accept", "application/json");
+
+            var json = JsonConvert.SerializeObject(model);
+            var data = new StringContent(
+                json,
+                Encoding.UTF8,
+                "application/json"
+                );
+
+            var response = await client
+                .PostAsync("api/usuario/novo", data);
+
+            response.EnsureSuccessStatusCode();
+
+            var usuario = await response.Content.ReadAsStringAsync();
+
+            _func.SaveOrUpdateOnLocalStorage("Usuario", usuario);
+
+            return JsonConvert.DeserializeObject<Usuario>(usuario);
+        }
     }
 
     public class Token
@@ -79,5 +109,38 @@ namespace FotogramClient.Models
         public string token_type { get; set; }
         public int expires_in { get; set; }
         public string userName { get; set; }
+    }
+
+    public class NovoUsuario
+    {
+        /// <summary>
+        /// Nome Completo
+        /// </summary>
+        public string NomeCompleto { get; set; }
+
+        /// <summary>
+        /// Nome de Usuario (único)
+        /// </summary>
+        public string NomeUsuario { get; set; }
+
+        /// <summary>
+        /// Data de Nascimento
+        /// </summary>
+        public DateTime DataNascimento { get; set; }
+
+        /// <summary>
+        /// Email do usuário
+        /// </summary>
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Senha do usuário
+        /// </summary>
+        public string Senha { get; set; }
+
+        /// <summary>
+        /// Confirmacao de senha do usuário
+        /// </summary>
+        public string ConfirmacaoSenha { get; set; }
     }
 }

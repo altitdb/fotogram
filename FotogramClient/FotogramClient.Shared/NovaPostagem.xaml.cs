@@ -31,7 +31,8 @@ namespace FotogramClient
     {
         private readonly Postagem _postagens = new Postagem();
 
-        private WriteableBitmap _image;
+        private BitmapImage _image;
+        private string _photoPath;
 
         public NovaPostagem()
         {
@@ -42,10 +43,12 @@ namespace FotogramClient
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _image = e.Parameter as WriteableBitmap;
-
-            if (_image != null)
+            var dic = e.Parameter as Dictionary<string, object>;
+            
+            if (dic != null)
             {
+                _image = dic["bmp"] as BitmapImage;
+                _photoPath = dic["uri"].ToString();
                 ImgFoto.Source = _image;
             }
 
@@ -69,7 +72,7 @@ namespace FotogramClient
                     Longitude = "",
                     Latitude = "",
                     Local = "",
-                    Imagem = ConvertImgSourceToArray(ImgFoto)
+                    Imagem = await ConvertBitmapImagToArray()
                 };
 
                 await _postagens.NovoPost(novo);
@@ -86,25 +89,38 @@ namespace FotogramClient
             }
         }
 
-        private string ConvertImgSourceToArray(Image img)
-        {
-            var imgBase64 = string.Empty;
+        //private string ConvertImgSourceToArray(Image img)
+        //{
+        //    var imgBase64 = string.Empty;
             
-            //var bmp = img.Source as WriteableBitmap;
+        //    //var bmp = img.Source as WriteableBitmap;
+            
+        //    if (_image != null)
+        //    {
+        //        using (Stream stream = _image.PixelBuffer.AsStream())
+        //        using (MemoryStream memoryStream = new MemoryStream())
+        //        {
+        //            stream.CopyTo(memoryStream);
+        //            imgBase64 = Convert.ToBase64String(memoryStream.ToArray());
+        //        }
+        //    }
+            
+        //    return imgBase64;
+        //}
 
-            
+        private async Task<string> ConvertBitmapImagToArray()
+        {   
+            var bmp = new BitmapImage(new Uri(_photoPath, UriKind.RelativeOrAbsolute));
 
-            if (_image != null)
-            {
-                using (Stream stream = _image.PixelBuffer.AsStream())
-                using (MemoryStream memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    imgBase64 = Convert.ToBase64String(memoryStream.ToArray());
-                }
-            }
-            
-            return imgBase64;
+            RandomAccessStreamReference rasr = RandomAccessStreamReference.CreateFromUri(bmp.UriSource);
+            var streamWithContent = await rasr.OpenReadAsync();
+
+            byte[] buffer = new byte[streamWithContent.Size];
+            await streamWithContent.ReadAsync(buffer.AsBuffer(), (uint)streamWithContent.Size, InputStreamOptions.None);
+
+            string base64String = Convert.ToBase64String(buffer);
+
+            return base64String;
         }
     }
 }

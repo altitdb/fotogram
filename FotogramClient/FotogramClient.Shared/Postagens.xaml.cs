@@ -33,6 +33,7 @@ namespace FotogramClient
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var postagens = await _postagens.ListaPostagens();
+            Lista.ItemsSource = postagens;
         }
 
         private void BtnNovoPost_OnClick(object sender, RoutedEventArgs e)
