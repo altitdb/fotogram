@@ -54,7 +54,7 @@ namespace Fotogram.Services
                 {
                     Directory.CreateDirectory(path);
                 }
-
+                
                 var imgName = string.Format("{0}.jpg", Guid.NewGuid());
 
                 var newFileNameOnServer = Path.Combine(path, imgName);
